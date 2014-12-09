@@ -1,0 +1,4 @@
+<%= select_tag "Vendedores", options_from_collection_for_select(@user, "id", "email", :selected => params[:option]), prompt: "Vendedores" %>
+
+
+<%= select_tag "Vendedores", options_from_collection_for_select(@user, "id", "email"), prompt: "Clientes", multiple: true %>
