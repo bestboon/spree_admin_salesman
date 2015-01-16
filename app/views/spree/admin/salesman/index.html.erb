@@ -1,0 +1,21 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h1>Lista de Vendedores</h1>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @vendedores.each do |form| %>
+          <tr>
+            <td><%= form.email %></td>
+            <td><%= link_to 'Editar', admin_salesman_form_path(id: form.id), :class => "glyphicon glyphicon-pencil" %> <%= link_to 'Mostrar', admin_salesman_show_path(id: form.id), :class => "glyphicon glyphicon-pencil" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

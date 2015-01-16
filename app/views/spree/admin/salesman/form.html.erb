@@ -1,0 +1,9 @@
+<%= form_tag admin_salesman_save_path do %>
+	
+	<h1><%=@vendedor.email%></h1>
+
+	<%= hidden_field_tag(:vendedor, @vendedor.id) %>
+	<%= select_tag :clientes, options_from_collection_for_select(@clientes, "id", "email"), multiple: true %>
+
+    <div><%= submit_tag 'Save' %></div>
+<% end -%>

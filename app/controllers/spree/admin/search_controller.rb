@@ -11,14 +11,24 @@ module Spree
         if params[:ids]
           @users = Spree.user_class.where(:id => params[:ids].split(','))
         else
-          @users = Spree.user_class.ransack({
-            :m => 'or',
-            :email_start => params[:q],
-            :ship_address_firstname_start => params[:q],
-            :ship_address_lastname_start => params[:q],
-            :bill_address_firstname_start => params[:q],
-            :bill_address_lastname_start => params[:q]
-          }).result.limit(10)
+          if spree_current_user.has_spree_role?("vendedor")
+            lista_clientes = Array.new
+            clientes = spree_current_user.salesman_clients
+            clientes.each do |cliente|
+            lista_clientes.append(cliente.client_id)
+            end
+            @users = Spree.user_class.find(lista_clientes) 
+          else
+            @users = Spree.user_class.ransack({
+              :m => 'or',
+              :email_start => params[:q],
+              :ship_address_firstname_start => params[:q],
+              :ship_address_lastname_start => params[:q],
+              :bill_address_firstname_start => params[:q],
+              :bill_address_lastname_start => params[:q]
+            }).result.limit(10)
+
+          end
         end
       end
 

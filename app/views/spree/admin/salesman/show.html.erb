@@ -1,0 +1,21 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h1>Vendedor: <%= @vendedor.email%></h1>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Cartera Clientes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cartera_clientes.each do |cliente| %>
+          <tr>
+            <td><%= cliente.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
