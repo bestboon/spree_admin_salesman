@@ -5,17 +5,19 @@
   <div class="panel-body">
     <table class="table">
       <thead>
-        <tr>
+        <tr data-hook="admin_products_index_headers">
           <th>Email</th>
-          <th>Acciones</th>
+          <th data-hook="admin_products_index_header_actions" class="actions"></th>
         </tr>
       </thead>
       <tbody>
         <% @vendedores.each do |form| %>
-          <tr>
-            <td><%= form.email %></td>
-            <td><%= link_to 'Editar', admin_salesman_form_path(id: form.id), :class => "glyphicon glyphicon-pencil" %> <%= link_to 'Mostrar', admin_salesman_show_path(id: form.id), :class => "glyphicon glyphicon-pencil" %></td>
+          <tr data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
+            <td><%= link_to form.email, admin_salesman_show_path(id: form.id)%></td>
+            <td class="actions actions-2 text-right" data-hook="admin_products_index_row_actions">
+             <%= link_to '', admin_salesman_form_path(id: form.id),  :no_text => true, class: "edit fa fa-edit icon_link with-tip no-text"%>
           </tr>
+            </td>
         <% end %>
       </tbody>
     </table>

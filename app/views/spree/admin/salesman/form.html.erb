@@ -3,7 +3,7 @@
 	<h1><%=@vendedor.email%></h1>
 
 	<%= hidden_field_tag(:vendedor, @vendedor.id) %>
-	<%= select_tag :clientes, options_from_collection_for_select(@clientes, "id", "email"), multiple: true %>
+	<%= select_tag :clientes, options_from_collection_for_select(@clientes, "id", "email",@clientes_seleccionados.map {|cliente| cliente.client_id} ), multiple: true %>
 
     <div><%= submit_tag 'Save' %></div>
 <% end -%>

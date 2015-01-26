@@ -34,7 +34,9 @@ module Spree
 
 
       private
-        
+        # Asociamos este controlador a una clase del modelo
+        # para poder gestionar los permisos de este controlador
+        # con la gema de cancan a traves de este modelo que asociamos.
         def model_class
           Spree::Order
         end
