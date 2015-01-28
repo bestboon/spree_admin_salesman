@@ -29,9 +29,9 @@ module Spree
         end
 
         # Agregamos la validacion de que solo los usuarios
-        # con un rol de administrador puedan ver todas las ordenes
-        # de lo contrario el usuario solo vera las ordenes del mismo.
-        if spree_current_user.has_spree_role?("admin")
+        # con un rol de [administrador, director, personal facturacion] puedan ver todas las ordenes
+        # de lo contrario el usuario solo vera las ordenes generadas por el.
+        if spree_current_user.has_spree_role?("admin") || spree_current_user.has_spree_role?("director") || spree_current_user.has_spree_role?("personal facturación")
           @search = Order.accessible_by(current_ability, :index).ransack(params[:q])
         else
           @search = Order.accessible_by(current_ability, :index).where(created_by_id: spree_current_user.id).ransack(params[:q])
