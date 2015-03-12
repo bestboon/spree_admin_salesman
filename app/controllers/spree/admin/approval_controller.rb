@@ -63,8 +63,8 @@ module Spree
       # tomando encuenta las taxonomias y el limite de lineas por factura configurado.
       def generate_orders
         @productos_por_taxonomias.each do |taxonomia, line_items|
-          # TODO el valor de division de lineas debe venir dinamicamente desde las configuraciones.
-          line_items.each_slice(10) do |line_items_slice|
+          # Picamos la orden actual en sub-ordenes si la orden excede la cantidad de lineas configuradas en el backend par auna orden.
+          line_items.each_slice(Spree::Config[:max_order_lines]) do |line_items_slice|
             line_items_slice.each do |line_item|
               @order = nil
               current_order = Spree::Order.new( user_id: spree_current_user.id,
