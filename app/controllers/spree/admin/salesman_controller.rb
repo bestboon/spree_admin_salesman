@@ -5,8 +5,8 @@ module Spree
       # Obtenemos el listado de los usuarios que pertenezcan tanto al grupo
       # de venderores como de clientes.
       def index
-        @vendedores = Spree::Role.where(name: "vendedor").take.users
-        @clientes = Spree::Role.where(name: "cliente").take.users
+        @vendedores = Spree::Role.where(name: "vendedor").take.users if Spree::Role.where(name: "vendedor").count > 0
+        @clientes = Spree::Role.where(name: "cliente").take.users if Spree::Role.where(name: "cliente").count > 0
       end
 
       def form

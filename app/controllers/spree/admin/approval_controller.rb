@@ -21,7 +21,7 @@ module Spree
           # Generamos las ordenes nuevas por taxonomias y limite de lineas
           generate_orders
           # Eliminamos la orden principal.
-          # delete_lines_main_order
+          delete_lines_main_order
           flash.notice = Spree.t(:order_processed_successfully)
           flash['order_completed'] = true
           # redirect_to admin_path
@@ -43,7 +43,7 @@ module Spree
       # Metodo que se encarga de dividir las ordenes por taxonomias.
       def split_order
         # Lineas de productos identificadas por taxonomias
-        @taxonomias = Spree::Taxonomy.all
+        @taxonomias = Spree::Taxon.where(parent_id: [1])
         # Creamos el hash de array donde almacenaremos las lineas de productos por taxonomias.
         @productos_por_taxonomias =  Hash.new
         # LLenamos el hash
@@ -52,8 +52,8 @@ module Spree
         end
         @order.line_items.each do |item|
           item.variant.product.taxons.each do |taxon|
-            if @productos_por_taxonomias[taxon.name]
-              @productos_por_taxonomias[taxon.name].append(item)
+            if @productos_por_taxonomias[taxon.parent.name]
+              @productos_por_taxonomias[taxon.parent.name].append(item)
             end
           end
         end
@@ -76,8 +76,11 @@ module Spree
             end
           @current_order = spree_current_user.last_incomplete_spree_order
           add_salesman
+          puts "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           @current_order.next
           @current_order.next
+          @current_order.next
+          @zapato = "chao"
           end
         end
       end

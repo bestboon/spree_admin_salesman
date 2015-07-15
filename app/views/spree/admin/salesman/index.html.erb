@@ -1,7 +1,7 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">
+  <% content_for :page_title do %>
     <h1>Lista de Vendedores</h1>
-  </div>
+  <% end %>
   <div class="panel-body">
     <table class="table">
       <thead>
@@ -11,13 +11,18 @@
         </tr>
       </thead>
       <tbody>
-        <% @vendedores.each do |form| %>
+        <% if @vendedores.first %>
+          <% @vendedores.each do |form| %>
+            <tr data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
+              <td><%= link_to form.email, admin_salesman_show_path(id: form.id)%></td>
+              <td class="actions actions-2 text-right" data-hook="admin_products_index_row_actions">
+               <%= link_to '', admin_salesman_form_path(id: form.id),  :no_text => true, class: "edit fa fa-edit icon_link with-tip no-text"%>
+            </tr>
+              </td>
+          <% end %>
+        <% else %>
           <tr data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
-            <td><%= link_to form.email, admin_salesman_show_path(id: form.id)%></td>
-            <td class="actions actions-2 text-right" data-hook="admin_products_index_row_actions">
-             <%= link_to '', admin_salesman_form_path(id: form.id),  :no_text => true, class: "edit fa fa-edit icon_link with-tip no-text"%>
-          </tr>
-            </td>
+              <td>No se encontrators usuarios con rol de vendedor desea, <%= link_to "Agregar un nuevo vendedor.", admin_users_path()%></td>
         <% end %>
       </tbody>
     </table>
